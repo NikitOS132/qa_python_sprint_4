@@ -24,6 +24,20 @@ def collector_with_favorites():
     collector.add_book_in_favorites('Избранная 2')
     return collector
 
+def test_get_books_genre_many_books(collector):
+    collector.add_new_book('Заживо в темноте')
+    collector.set_book_genre('Заживо в темноте', 'Ужасы')
+    collector.add_new_book('Золотой теленок')
+    collector.set_book_genre('Золотой теленок', 'Комедии')
+    collector.add_new_book('Восточный экспресс')
+    collector.set_book_genre('Восточный экспресс', 'Детективы')
+    expected = {
+        'Заживо в темноте': 'Ужасы',
+        'Золотой теленок': 'Комедии',
+        'Восточный экспресс': 'Детективы'
+    }
+    assert collector.get_books_genre() == expected
+
 class TestAddNewBook:
     def test_add_single_book(self, collector):
         collector.add_new_book('Гарри Поттер')
